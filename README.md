@@ -9,3 +9,5 @@ Primeramente para instalar las dependecias necesarias se debe abrir un terminal 
 
 Luego para hacer funcionar el back-end, se debe ocupar el siguiente comando:
     node back-end/app.js
+
+por ultimo abrir el archivo index.html en algun navegador.

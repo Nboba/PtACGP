@@ -96,7 +96,4 @@ app.get('/books', (req, res) => {
 // --- Iniciar el servidor ---
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
-    console.log('Endpoints disponibles:');
-    console.log(`  POST /books para guardar un libro`);
-    console.log(`  GET /books para obtener todos los libros`);
 });
