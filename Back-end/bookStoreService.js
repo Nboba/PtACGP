@@ -1,29 +1,28 @@
-// script.js
 
-// URL base de tu backend
-const BASE_URL = 'http://localhost:3000'; // Asegúrate de que este sea el puerto donde corre tu backend
+const BASE_URL = 'http://localhost:3000'; 
 
 // Elementos del DOM
 const bookForm = document.getElementById('bookForm');
 const bookNameInput = document.getElementById('bookName');
 const bookList = document.getElementById('bookList');
 const messageArea = document.getElementById('message-area');
+const durationMessage = 3000;
 
 // --- Funciones para manejar mensajes de UI ---
 function showMessage(msg, type) {
     messageArea.textContent = msg;
-    messageArea.className = `message ${type}`; // Añade clase 'success' o 'error'
+    messageArea.className = `message ${type}`; // Añade un estilo dependiendo de la solicitud 'success' o 'error'
     messageArea.style.display = 'block';
     setTimeout(() => {
         messageArea.style.display = 'none';
         messageArea.textContent = '';
-    }, 3000); // Oculta el mensaje después de 3 segundos
+    }, durationMessage); 
 }
 
 // --- Función para obtener y mostrar todos los libros ---
 async function fetchBooks() {
     try {
-        bookList.innerHTML = '<li>Cargando libros...</li>'; // Mensaje de carga
+        bookList.innerHTML = '<li>Cargando libros...</li>'; 
         const response = await fetch(`${BASE_URL}/books`);
 
         if (!response.ok) {

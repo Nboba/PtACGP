@@ -11,18 +11,17 @@ const BOOKS_FILE = path.join(__dirname, 'books.txt'); // Ruta al archivo de text
 let books = []; // Array que contendrá nuestros libros en memoria
 let nextId = 1; // Para asignar IDs únicos
 
-// --- Función para cargar libros desde el archivo ---
+
 function loadBooks() {
     try {
-        if (fs.existsSync(BOOKS_FILE)) { // Verifica si el archivo existe
-            const data = fs.readFileSync(BOOKS_FILE, 'utf8'); // Lee el contenido del archivo
+        if (fs.existsSync(BOOKS_FILE)) { 
+            const data = fs.readFileSync(BOOKS_FILE, 'utf8'); 
             if (data) {
                 // Cada línea es un libro, parseamos como JSON
                 const loadedBooks = data.split('\n')
-                                        .filter(line => line.trim() !== '') // Filtra líneas vacías
+                                        .filter(line => line.trim() !== '') 
                                         .map(line => JSON.parse(line));
                 books = loadedBooks;
-                // Asegura que nextId continúe desde el ID más alto existente
                 if (books.length > 0) {
                     const maxId = Math.max(...books.map(book => book.id));
                     nextId = maxId + 1;
@@ -33,11 +32,11 @@ function loadBooks() {
             }
         } else {
             console.log('El archivo de libros no existe, se creará uno nuevo al guardar.');
-            fs.writeFileSync(BOOKS_FILE, '', 'utf8'); // Crea el archivo si no existe
+            fs.writeFileSync(BOOKS_FILE, '', 'utf8'); 
         }
     } catch (error) {
         console.error('Error al cargar los libros:', error);
-        books = []; // Si hay un error, inicializa como array vacío
+        books = []; 
         nextId = 1;
     }
 }
@@ -45,9 +44,8 @@ function loadBooks() {
 // --- Función para guardar libros en el archivo ---
 function saveBooks() {
     try {
-        // Convierte cada objeto libro a una cadena JSON y únelas con saltos de línea
         const data = books.map(book => JSON.stringify(book)).join('\n');
-        fs.writeFileSync(BOOKS_FILE, data, 'utf8'); // Escribe los datos en el archivo
+        fs.writeFileSync(BOOKS_FILE, data, 'utf8'); 
         console.log('Libros guardados en', BOOKS_FILE);
     } catch (error) {
         console.error('Error al guardar los libros:', error);
@@ -57,26 +55,22 @@ function saveBooks() {
 // --- Cargar los libros al iniciar el servidor ---
 loadBooks();
 
-// --- Middleware para CORS ---
-app.use(cors());
 
-// Middleware para parsear JSON en las solicitudes
+app.use(cors());
 app.use(express.json());
+
 // --- Endpoint POST para guardar un libro ---
 app.post('/books', (req, res) => {
     const { name } = req.body;
-
     // Validación básica
     if (!name) {
         return res.status(400).json({ message: 'El nombre del libro es requerido.' });
     }
-
     // Crea el objeto libro
     const newBook = {
         id: nextId++,
         name: name
     };
-
     // Guarda el libro en nuestro "almacén" en memoria
     books.push(newBook);
 
@@ -103,6 +97,6 @@ app.get('/books', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
     console.log('Endpoints disponibles:');
-    console.log(`  POST /books para guardar un libro (ej: {"name": "El Principito"})`);
+    console.log(`  POST /books para guardar un libro`);
     console.log(`  GET /books para obtener todos los libros`);
 });
