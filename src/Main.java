@@ -8,8 +8,24 @@ public class Main {
             System.out.print(n+" ");
         }
     }
-
+    // Funcion que recibe los valores de entrada desordenados y con valores repetidos
+    // Devuelve un array de enteros con los valores unicos y ordenados.
     public static int[] ordenaryLimpiarRepetidos(int[] entrada){
+        int[] numeroUnicos= obtenerUnicos(entrada);
+        int nUnicos = numeroUnicos.length;
+        for(int i =0 ; i < nUnicos; i++ ){
+            for(int j =0; j< nUnicos -1 ; j++){
+                if (numeroUnicos[j] > numeroUnicos[j +1]) {
+                    int auxNumero = numeroUnicos[j];
+                    numeroUnicos[j] = numeroUnicos[j +1];
+                    numeroUnicos[j +1] = auxNumero;                }
+            }
+        }
+        return numeroUnicos;
+    }
+    // Funcion que recibe los valores de entrada desordenados y con valores repetidos
+    // Devuelve un array de enteros con los valores sin repetir.
+    public static int[] obtenerUnicos(int[] entrada){
         Set<Integer> numerosUnicos = new HashSet<>();
         for(int n: entrada){
             numerosUnicos.add(n);
@@ -19,14 +35,6 @@ public class Main {
         int z =0;
         for(Integer n: numerosUnicos.toArray(new Integer[nUnicos])){
             numeros[z++] = n;
-        }
-        for(int i =0 ; i < nUnicos; i++ ){
-            for(int j =0; j< nUnicos -1 ; j++){
-                if (numeros[j] > numeros[j +1]) {
-                    int auxNumero = numeros[j];
-                    numeros[j] = numeros[j +1];
-                    numeros[j +1] = auxNumero;                }
-            }
         }
         return numeros;
     }
