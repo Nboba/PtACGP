@@ -1,5 +1,11 @@
 # Prueba tecnica ACGP
-Primeramente se debe abrir un terminal y poner npm install
+Dependencias:
+    -Nodejs
+    -Express.js
+    -cors
 
-Luego para hacer funcionar el back-end, se debe ocupar el siguiente comando
+Primeramente para instalar las dependecias necesarias se debe abrir un terminal y escribir el siguiente comando:
+    npm install
+
+Luego para hacer funcionar el back-end, se debe ocupar el siguiente comando:
     node back-end/app.js
